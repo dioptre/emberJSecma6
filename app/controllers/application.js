@@ -70,7 +70,6 @@ class Creature {
 
 class Person extends Creature {
   grow() {
-    debugger;
     this['age']++;
   }
 }
@@ -87,24 +86,28 @@ Ember.Object.reopenClass({
   }
 });
 
-const EmberPerson = Ember.Object.extend(mixinify(Person)).create({age:23});
-EmberPerson.age++;
-EmberPerson.age++;
-EmberPerson.grow.call(EmberPerson);
-EmberPerson.grow();
-console.log(EmberPerson);
+const EmberPerson = Ember.Object.extend(mixinify(Person));
+const EmberPersonInstance = EmberPerson.create({age:23});
+EmberPersonInstance.age++;
+EmberPersonInstance.age++;
+EmberPersonInstance.grow.call(EmberPersonInstance);
+EmberPersonInstance.grow();
+console.log(EmberPersonInstance);
 const proxy = Ember.ObjectProxy.create({
-  content: EmberPerson
+  content: EmberPersonInstance
 });
 
 export default Ember.Controller.extend({
   appName: 'Ember Twiddle',
-  outlet: {age : 55}, //EmberPerson kills it
+  outlet: EmberPersonInstance, // kills it
   actions: {
     go: function() {
-      console.log(EmberPerson)
-			EmberPerson.age++;
-      EmberPerson.grow();
+      console.log(EmberPersonInstance)
+			EmberPersonInstance.age++;
+      EmberPersonInstance.grow();
     }
   }
 });
+
+EmberPersonInstance.grow();
+EmberPersonInstance.grow();
