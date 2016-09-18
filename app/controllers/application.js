@@ -99,12 +99,13 @@ const proxy = Ember.ObjectProxy.create({
 
 export default Ember.Controller.extend({
   appName: 'Ember Twiddle',
-  outlet: EmberPersonInstance, // kills it
+  outlet: {age:25}, // kills it if we use EmberPersonInstance
   actions: {
     go: function() {
       console.log(EmberPersonInstance)
-			EmberPersonInstance.age++;
+			//EmberPersonInstance.age++;
       EmberPersonInstance.grow();
+			this.set('outlet.age', EmberPersonInstance.age)
     }
   }
 });
