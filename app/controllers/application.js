@@ -105,7 +105,8 @@ export default Ember.Controller.extend({
       console.log(EmberPersonInstance)
 			//EmberPersonInstance.age++;
       EmberPersonInstance.grow();
-			this.set('outlet.age', EmberPersonInstance.age)
+			this.set('outlet.age', EmberPersonInstance.age) //OK
+			//this.set('outlet', EmberPersonInstance) //also kills it
     }
   }
 });
